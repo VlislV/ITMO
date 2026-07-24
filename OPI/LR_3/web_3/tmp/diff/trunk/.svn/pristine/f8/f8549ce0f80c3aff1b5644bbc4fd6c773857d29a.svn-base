@@ -1,0 +1,30 @@
+<h:panelGroup xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:f="http://java.sun.com/jsf/core"
+              id="pointsTable">
+    <h:dataTable value="#{pageManagerBean.getRows()}" var="point">
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="X" />
+            </f:facet>
+            <h:outputText value="#{point.x}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="Y" />
+            </f:facet>
+            <h:outputText value="#{point.y}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="R" />
+            </f:facet>
+            <h:outputText value="#{point.r}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="RESULT" />
+            </f:facet>
+            <h:outputText value="#{point.result}" />
+        </h:column>
+    </h:dataTable>
+</h:panelGroup>

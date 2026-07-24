@@ -1,0 +1,30 @@
+limit: 1000
+memory_size: 0x1000
+memory_mapped_io:
+  0x80: [hello world!, 10]
+  0x84: []
+reports:
+  - name: Step-by-step (Head)
+    slice: ["head", 50]
+    view: |
+      {Acc:hex} <-> {Acc:dec}
+      {pc:dec}: {instruction} {pc:label}
+  - name: Step-by-step (Tail)
+    slice: ["tail", 50]
+    view: |
+      {Acc:hex} <-> {Acc:dec}
+      {pc:dec}: {instruction} {pc:label}
+  - name: Buffer_res
+    slice: last
+    view: |
+      {memory:0:31}
+  - name: Result
+    slice: last
+    view: |
+      numio[0x80]: {io:0x80:sym}
+      numio[0x84]: {io:0x84:sym}
+    assert: |
+      numio[0x80]: "" >>> ""
+      numio[0x84]: "" >>> "Hello World!"
+# https://wrench.edu.swampbuds.me/report/fb9ce31b-a20b-488a-8dd1-e78571f74951
+# Ilovearch_comp

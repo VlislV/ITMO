@@ -1,0 +1,11 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="primefaces"
+                template="/resources/components/facelets_tmpl/layout_templ.xhtml">
+        <ui:define name="content">
+            <p:clock pattern="HH:mm:ss dd.MM.yyyy" widgetVar="My_clock" autoSync="true" syncInterval="5000"/>
+            <div>
+                <a href="#{request.contextPath}/main.xhtml">НА ГЛАВНУЮ</a>
+            </div>
+        </ui:define>
+</ui:composition>

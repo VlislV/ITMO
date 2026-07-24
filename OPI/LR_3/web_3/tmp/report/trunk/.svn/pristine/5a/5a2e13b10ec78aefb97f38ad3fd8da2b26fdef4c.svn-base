@@ -1,0 +1,25 @@
+<ui:composition
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        template="/resources/components/facelets_tmpl/layout_templ.xhtml">
+    <ui:define name="styles">
+        <h:outputStylesheet library="css" name="forms.css"/>
+        <h:outputStylesheet library="css" name="table.css"/>
+        <h:outputStylesheet library="css" name="figure.css"/>
+    </ui:define>
+        <ui:define name="content">
+            <div class="content-wrapper">
+            <ui:include src="/resources/components/facelets_tmpl/figure.xhtml" />
+            <ui:include src="/resources/components/facelets_tmpl/form.xhtml" />
+            </div>
+            <ui:include src="/resources/components/facelets_tmpl/table.xhtml" />
+        </ui:define>
+        <ui:define name="footer">
+            <div>
+                <a href="#{request.contextPath}/index.xhtml">НА ВЫХОД</a>
+            </div>
+        </ui:define>
+    <ui:define name="scripts">
+        <h:outputScript library="js" name="point.js"/>
+    </ui:define>
+</ui:composition>

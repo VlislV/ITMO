@@ -1,0 +1,27 @@
+limit: 1000
+memory_size: 0x1000
+memory_mapped_io:
+  0x80: [2]
+  0x84: []
+reports:
+  - name: Step-by-step(head)
+    slice: ["head", 50]
+    view: |
+      T: {T:dec} A: {A:dec} S: {S:dec} R: {R} 
+      ({pc}: {instruction} {pc:label})
+
+  - name: Step-by-step(tail)
+    slice: ["tail", 50]
+    view: |
+      T: {T:dec} A: {A:dec} S: {S:dec} R: {R} 
+      ({pc}: {instruction} {pc:label})
+      
+  - name: Result
+    slice: last
+    view: |
+      numio[0x80]: {io:0x80:dec}
+      numio[0x84]: {io:0x84:dec}
+    assert: |
+      numio[0x80]: [] >>> []
+      numio[0x84]: [] >>> [2]
+# https://wrench.edu.swampbuds.me/report/c486165e-398d-436e-b9e7-816b4f8e58b7

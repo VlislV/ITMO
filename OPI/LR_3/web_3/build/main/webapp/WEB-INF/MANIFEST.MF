@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.10.17
+Created-By: 17.0.12+8-LTS-286 (Oracle Corporation)
+Implementation-Version: 1.0.0
+Built-By: Влад
+MD5-Digest: fcd755ec6c4394f1be75dc7f7e73209a
+SHA1-Digest: a70e090a658bfe6be8b8c819b9024edf74e463ee
+Javadoc-Path: tmp/doc
+

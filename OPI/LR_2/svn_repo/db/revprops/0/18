@@ -1,0 +1,13 @@
+K 10
+svn:author
+V 3
+red
+K 8
+svn:date
+V 27
+2026-05-17T17:27:16.695856Z
+K 7
+svn:log
+V 65
+r14 merged branch2 into trunk, kept trunk version cause its right
+END

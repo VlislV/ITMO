@@ -1,0 +1,20 @@
+# ==================== Checker.java ====================
+validation.error.x=Invalid X value
+validation.error.y=Y must be between -3 and 5
+validation.error.r=R must be between 2 and 5
+
+result.hit.triangle=HIT in triangle
+result.hit.rectangle=HIT in rectangle
+result.hit.circle=HIT in circle
+result.miss=MISS
+
+# ==================== DbManager.java ====================
+db.init.success=Table 'points' initialized successfully
+db.init.failed=Database initialization failed
+db.close.error=Error closing connection
+
+# ==================== PointManagerBean.java ====================
+db.save.success=Point saved successfully. Rows affected: 
+db.save.error=Error saving point to database
+db.save.failed=Failed to save point
+error.title=Error

@@ -1,0 +1,11 @@
+M       main\java\Server.java
+M       main\java\Utils\Checker.java
+M       main\java\Utils\DbManager.java
+A       main\java\Utils\MBeanMan.java
+A       main\java\beans\HitArea.java
+A       main\java\beans\HitAreaMBean.java
+A       main\java\beans\MISSProp.java
+A       main\java\beans\MISSPropMBean.java
+M       main\java\beans\PointManagerBean.java
+M       test\java\Utils\CheckerTest.java
+M       test\java\Utils\DbManagerTest.java

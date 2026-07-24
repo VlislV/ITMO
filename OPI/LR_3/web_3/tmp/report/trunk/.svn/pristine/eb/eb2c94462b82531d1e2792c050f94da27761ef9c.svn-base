@@ -1,0 +1,14 @@
+figure {
+    flex: 2;
+    min-width: 200px;
+    background: #ffffff;
+    padding: 50px;
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgb(51 87 143 / 10%);
+}
+
+
+figure{
+    flex: 1.4;
+    min-width: 400px;
+}

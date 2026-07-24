@@ -1,0 +1,22 @@
+// var. 23011
+public class Lab4 {
+  public static void main(String[] args) {
+  C a = new C();
+  C b = new E();
+  E c = new E();
+  a.p34();
+  b.p20();
+  a.p26();
+  a.p28();
+  a.p25();
+  c.p14();
+  a.p1();
+  b.p37();
+  c.p18();
+  c.p24();
+  b.p10(a);
+  b.p10(b);
+  c.p10(c);
+  }
+}
+previous : 7

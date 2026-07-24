@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="минипекка" name="Utils.DbManagerTest" skipped="0" tests="1" time="0.055" timestamp="2026-06-09T08:31:31">
+  <properties>
+    <property name="ant.library.dir" value="C:\Program Files\apache-ant-1.10.17\lib" />
+    <property name="java.specification.version" value="17" />
+    <property name="ant.project.name" value="WEBLAB3_OPI" />
+    <property name="sun.cpu.isalist" value="amd64" />
+    <property name="sun.jnu.encoding" value="Cp1251" />
+    <property name="svn.local.repository" value="Documents/ITMO/OPI/LR_3/OPI_LR3_svn/trunk" />
+    <property name="project.name" value="WebLab3" />
+    <property name="replace.var.to" value="allowedX" />
+    <property name="sun.arch.data.model" value="64" />
+    <property name="java.vendor.url" value="https://java.oracle.com/" />
+    <property name="replace.package.from" value="beans" />
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17\bin" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner Utils.DbManagerTest skipNonTests=false filtertrace=true haltOnError=true haltOnFailure=true formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\test-report\TEST-Utils.DbManagerTest.xml crashfile=C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\junitvmwatcher15304092065632657683.properties propsfile=C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\junit3680398461743071982.properties" />
+    <property name="jdk.debug" value="release" />
+    <property name="WEB-INF.dir" value="build/main/webapp/WEB-INF" />
+    <property name="sun.stderr.encoding" value="cp866" />
+    <property name="java.specification.vendor" value="Oracle Corporation" />
+    <property name="replace.var.from" value="validX" />
+    <property name="java.version.date" value="2024-07-16" />
+    <property name="java.home" value="C:\Program Files\Java\jdk-17" />
+    <property name="basedir" value="C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3" />
+    <property name="file.separator" value="\" />
+    <property name="git.repository" value="https://github.com/VlislV/OPI_LR3.git" />
+    <property name="java.vm.compressedOopsMode" value="Zero based" />
+    <property name="line.separator" value="&#xd;&#xa;" />
+    <property name="sun.stdout.encoding" value="cp866" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+    <property name="doc.dir" value="tmp/doc" />
+    <property name="user.script" value="" />
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+    <property name="java.runtime.version" value="17.0.12+8-LTS-286" />
+    <property name="tracked.classes" value="ant/conf/tracked-classes.txt" />
+    <property name="user.name" value="Влад" />
+    <property name="all.classes.sha1" value="2d28835b14dcdb46e907c7d0e4c257527ffafdb8" />
+    <property name="main.webapp.dir" value="src/main/webapp" />
+    <property name="file.encoding" value="Cp1251" />
+    <property name="main.java.dir" value="src/main/java" />
+    <property name="git.revisions" value="HEAD~0 HEAD~1" />
+    <property name="test.resources" value="build/test/resources" />
+    <property name="ant.file.type.WEBLAB3_OPI" value="file" />
+    <property name="dist.dir" value="dist" />
+    <property name="build.dir" value="build" />
+    <property name="vm.args" value="-Xmx512m -Xms256m -Dfile.encoding=UTF-8" />
+    <property name="java.io.tmpdir" value="C:\Users\46AD~1\AppData\Local\Temp\" />
+    <property name="replace.package.to" value="altbeans" />
+    <property name="java.version" value="17.0.12" />
+    <property name="test-report.dir" value="test-report" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="git.clone.dir" value="tmp/git-repo" />
+    <property name="ant.home" value="C:\Program Files\apache-ant-1.10.17\bin\.." />
+    <property name="lib.dir" value="lib" />
+    <property name="sun.os.patch.level" value="" />
+    <property name="native.encoding" value="Cp1251" />
+    <property name="ant.version" value="Apache Ant(TM) version 1.10.17 compiled on April 6 2026" />
+    <property name="all.classes.md5" value="97ff16bb434aa7db677b06150b83de46" />
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-17\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Python313\Scripts\;C:\Python313\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\TDM-GCC-64\bin;C:\Program Files\GitHub CLI\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\Program Files\Meson\;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Users\Влад\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\Влад\AppData\Local\Programs\Python\Python310\;C:\Users\Влад\AppData\Local\Microsoft\WindowsApps;C:\Users\Влад\AppData\Local\atom\bin;C:\Users\Влад\AppData\Local\Microsoft\WindowsApps;C:\Users\Влад\AppData\Local\Programs\Microsoft VS Code\bin;C:\Python36;C:\Python36\Scripts;C:\Python27\Scripts;C:\Python27;C:\Users\Влад\.dotnet\tools;C:\Program Files\JetBrains\IntelliJ IDEA 2024.3.4\bin;C:\Program Files (x86)\maven\apache-maven-3.9.9\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\cursor\resources\app\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\gnuplot\bin;C:\arch_cmp;C:\Program Files\PowerShell\7\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\visualvm_221\bin;C:\Program Files\PowerShell\7;C:\Python313\Scripts\;C:\Python313\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\TDM-GCC-64\bin;C:\Program Files\GitHub CLI\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\Program Files\Meson\;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Users\Влад\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\Влад\AppData\Local\Programs\Python\Python310\;C:\Users\Влад\AppData\Local\Microsoft\WindowsApps;C:\Users\Влад\AppData\Local\atom\bin;C:\Users\Влад\AppData\Local\Microsoft\WindowsApps;C:\Users\Влад\AppData\Local\Programs\Microsoft VS Code\bin;C:\Python36;C:\Python36\Scripts;C:\Python27\Scripts;C:\Python27;C:\Users\Влад\.dotnet\tools;C:\Program Files\JetBrains\IntelliJ IDEA 2024.3.4\bin;C:\Program Files (x86)\maven\apache-maven-3.9.9\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\cursor\resources\app\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\gnuplot\bin;C:\arch_cmp;C:\Program Files\PowerShell\7\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\PowerShell\7;C:\Python313\Scripts\;C:\Python313\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\TDM-GCC-64\bin;C:\Program Files\GitHub CLI\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\Program Files\Meson\;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Users\Влад\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\Влад\AppData\Local\Programs\Python\Python310\;C:\Users\Влад\AppData\Local\Microsoft\WindowsApps;C:\Users\Влад\AppData\Local\atom\bin;C:\Users\Влад\AppData\Local\Microsoft\WindowsApps;C:\Users\Влад\AppData\Local\Programs\Microsoft VS Code\bin;C:\Python36;C:\Python36\Scripts;C:\Python27\Scripts;C:\Python27;C:\Users\Влад\.dotnet\tools;C:\Program Files\JetBrains\IntelliJ IDEA 2024.3.4\bin;C:\Program Files (x86)\maven\apache-maven-3.9.9\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\cursor\resources\app\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\gnuplot\bin;C:\arch_cmp;C:\Program Files\PowerShell\7\;C:\Program Files\TortoiseSVN\bin;C:\Users\Влад\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\Влад\AppData\Local\Programs\Python\Python310\;C:\Users\Влад\AppData\Local\Microsoft\WindowsApps;C:\Users\Влад\AppData\Local\atom\bin;C:\Users\Влад\AppData\Local\Microsoft\WindowsApps;C:\Users\Влад\AppData\Local\Programs\Microsoft VS Code\bin;C:\Python36;C:\Python36\Scripts;C:\Python27\Scripts;C:\Python27;C:\Users\Влад\.dotnet\tools;C:\Program Files\JetBrains\IntelliJ IDEA 2024.3.4\bin;;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.3.5\bin;;C:\Users\Влад\AppData\Local\GitHubDesktop\bin;C:\Program Files (x86)\Nmap;C:\Users\Влад\AppData\Roaming\npm;C:\Users\Влад\AppData\Local\Programs\cursor\resources\app\bin;C:\Julia-1.12.6\bin;C:\Program Files\apache-ant-1.10.17\bin;;C:\Program Files\Java\jdk-17\bin;C:\Program Files\visualvm_221\bin;." />
+    <property name="java.vendor" value="Oracle Corporation" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="ant.file.type" value="file" />
+    <property name="scp.port" value="2222" />
+    <property name="scp.server" value="s465602@helios.cs.ifmo.ru:/home/studs/s465602" />
+    <property name="java.class.path" value="C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\lib\hamcrest-core-1.3.jar;C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\lib\hsqldb-2.7.2.jar;C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\lib\jakarta.jakartaee-api-9.1.0.jar;C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\lib\junit-4.13.2.jar;C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\lib\primefaces-15.0.6-jakarta.jar;C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\build\main\resources;C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\build\test\java;C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\build\test\resources;C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\build\main\java;C:\Program Files\apache-ant-1.10.17\lib\ant-launcher.jar;C:\Program Files\apache-ant-1.10.17\lib\ant.jar;C:\Program Files\apache-ant-1.10.17\lib\ant-junit.jar;C:\Program Files\apache-ant-1.10.17\lib\ant-junit4.jar" />
+    <property name="replace.class.to" value="AlternativeUtils" />
+    <property name="java.vm.vendor" value="Oracle Corporation" />
+    <property name="ant-contrib.jar" value="ant/lib/ant-contrib-1.0b3.jar" />
+    <property name="user.variant" value="" />
+    <property name="build.classes" value="build/main/java" />
+    <property name="compiler.args" value="-Xlint:all" />
+    <property name="os.name" value="Windows 11" />
+    <property name="java.vm.specification.version" value="17" />
+    <property name="test.java.dir" value="src/test/java" />
+    <property name="scp.password" value="mWEi=4227" />
+    <property name="ant.file.WEBLAB3_OPI" value="C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\ant\build.xml" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="user.country" value="RU" />
+    <property name="test.dir" value="src/test" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="tmp.dir" value="tmp" />
+    <property name="user.home" value="C:\Users\Влад" />
+    <property name="user.language" value="ru" />
+    <property name="ant.java.version" value="17" />
+    <property name="fail-sound.wav" value="ant/conf/MEL2_sound.wav" />
+    <property name="ant.file" value="C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\ant\build.xml" />
+    <property name="path.separator" value=";" />
+    <property name="build.resources.dir" value="build/main/resources" />
+    <property name="svn.tracked_classes" value="ant/conf/tracked-classes.txt" />
+    <property name="os.version" value="10.0" />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="ant.project.invoked-targets" value="report" />
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM" />
+    <property name="test.classes" value="build/test/java" />
+    <property name="replace.class.from" value="Utils" />
+    <property name="ant.core.lib" value="C:\Program Files\apache-ant-1.10.17\lib\ant.jar" />
+    <property name="success-sound.wav" value="ant/conf/MEL1_sound.wav" />
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/" />
+    <property name="user.dir" value="C:\Users\Влад\Documents\ITMO\OPI\LR_3\web_3\ant" />
+    <property name="os.arch" value="amd64" />
+    <property name="java.vm.info" value="mixed mode, sharing" />
+    <property name="java.vm.version" value="17.0.12+8-LTS-286" />
+    <property name="java.class.version" value="61.0" />
+    <property name="src.dir" value="src" />
+    <property name="ant.project.default-target" value="build-war" />
+  </properties>
+  <testcase classname="Utils.DbManagerTest" name="testConnectionIsNull" time="0.0" />
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

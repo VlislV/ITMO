@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="WEBLAB3_OPI" basedir=".." default="build-war">
+
+<!--PROPS & TASKDEF'S-->
+
+    <property file="./ant/conf/build.properties"/>
+
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="${ant-contrib.jar}"/>
+        </classpath>
+    </taskdef>
+
+<!--CLASS PATHS-->
+
+    <path id="compile.classpath">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+        <pathelement path="${build.dir}/main/resources"/>
+    </path>
+
+    <path id="test.classpath">
+        <path refid="compile.classpath"/>
+        <pathelement path="${test.classes}"/>
+        <pathelement path="${test.resources}"/>
+        <pathelement location="${build.classes}"/>
+    </path>
+
+<!--_TARGETS-->
+
+    <target name="_clean-tmp">
+         <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="_compile-tests" depends="compile">
+        <mkdir dir="${test.classes}"/>
+        <copy todir="${test.resources}">
+            <fileset dir="${test.dir}">
+                <exclude name="**/java/"/>
+            </fileset>
+        </copy>
+        <javac srcdir="${test.java.dir}"
+               destdir="${test.classes}"
+               includeantruntime="false"
+               encoding="UTF-8">
+            <classpath refid="test.classpath"/>
+        </javac>
+    </target>
+
+
+<!--TASK TARGETS-->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete dir="${test-report.dir}"/>
+        <delete dir="${doc.dir}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${build.classes}"/>
+        <copy todir="${build.dir}">
+            <fileset dir="${src.dir}">
+                <exclude name="**/test/"/>
+                <exclude name="**/java/"/>
+            </fileset>
+        </copy>
+        <javac srcdir="${main.java.dir}" destdir="${build.classes}"
+               debug="true" includeantruntime="false">
+            <compilerarg line="${compiler.args}"/>
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+
+    <target name="doc" depends="compile">
+        <mkdir dir="${doc.dir}"/>
+        <javadoc sourcepath="${src.dir}"
+                 destdir="${doc.dir}"
+                 encoding="UTF-8" charset="UTF-8" docencoding="UTF-8"
+                 windowtitle="${project.name} API">
+            <classpath refid="compile.classpath"/>
+            <fileset dir="${main.java.dir}">
+                <include name="**/*.java" />
+            </fileset>
+        </javadoc>
+
+        <checksum algorithm="MD5" totalproperty="all.classes.md5">
+            <fileset dir="${build.dir}" includes="**/*.class"/>
+        </checksum>
+        <checksum algorithm="SHA-1" totalproperty="all.classes.sha1">
+            <fileset dir="${build.dir}" includes="**/*.class"/>
+        </checksum>
+        <manifest file="${WEB-INF.dir}/MANIFEST.MF">
+            <attribute name="Implementation-Version" value="1.0.0"/>
+            <attribute name="Built-By" value="${user.name}"/>
+            <attribute name="MD5-Digest" value="${all.classes.md5}"/>
+            <attribute name="SHA1-Digest" value="${all.classes.sha1}"/>
+            <attribute name="Javadoc-Path" value="${doc.dir}"/>
+        </manifest> 
+    </target>
+
+    <target name="test" depends="_compile-tests, build-war">
+        <mkdir dir="${test-report.dir}"/>
+        <junit printsummary="on" haltonfailure="true" haltonerror="true">
+            <classpath refid="test.classpath"/>
+            <formatter type="xml" usefile="true"/>
+            <batchtest fork="yes" todir="${test-report.dir}">
+                <fileset dir="${test.classes}" includes="**/*Test.class"/>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="build-war" depends="doc">
+        <mkdir dir="${dist.dir}"/>
+        <war destfile="${dist.dir}/${project.name}.war"
+             webxml="${WEB-INF.dir}/web.xml">
+            <classes dir="${build.classes}"/>
+            <classes dir="${build.resources.dir}"/>
+            <lib dir="${lib.dir}">
+                <include name="primefaces-*.jar"/>
+                <include name="hsqldb-*.jar"/>
+            </lib>
+            <fileset dir="${main.webapp.dir}">
+                <include name="**/*.xhtml"/>
+                <include name="**/*.css"/>
+                <include name="**/*.js"/>
+                <include name="**/*.png"/>
+            </fileset>
+            <fileset dir="${main.webapp.dir}/WEB-INF">
+                <include name="beans.xml"/>
+            </fileset>
+        </war>
+    </target>
+
+    <target name="music" depends="build-war">
+        <sound>
+            <success source="${success-sound.wav}"/>
+            <fail source="${fail-sound.wav}"/>
+        </sound>
+    </target>
+
+    <target name="xml">
+        <xmlvalidate lenient="false" failonerror="true" warn="true">
+            <fileset dir="." includes="**/*.xml"/>
+<!--                     excludes=", dist/**, report/**"/>-->
+            <attribute name="http://xml.org/sax/features/validation" value="false"/>
+        </xmlvalidate>
+    </target>
+
+    <target name="scp" depends="build-war">
+        <scp file="${dist.dir}/${project.name}.war"
+             todir="${scp.server}" port="${scp.port}"
+             password="${scp.password}" trust="true"/>
+    </target>
+
+    <target name="native2ascii" depends="compile">
+        <native2ascii encoding="${native.encoding}"
+                      src="${build.resources.dir}"
+                      dest="${build.resources.dir}"
+                      includes="locales*.properties"
+                      ext="_ascii.properties"/>
+    </target>
+
+    <target name="alt" description="Создание альтернативной версии с изменёнными именами" depends="clean">
+
+        <copy todir="${tmp.dir}/alt-src">
+            <fileset dir="${src.dir}"/>
+        </copy>
+
+        <replaceregexp match="${replace.package.from}"
+                       replace="${replace.package.to}"
+                       flags="g" byline="false">
+            <fileset dir="${tmp.dir}/alt-src" includes="**/*.java"/>
+        </replaceregexp>
+
+        <replaceregexp match="${replace.class.from}"
+                       replace="${replace.class.to}"
+                       flags="g" byline="false">
+            <fileset dir="${tmp.dir}/alt-src" includes="**/*.java"/>
+        </replaceregexp>
+
+        <replaceregexp match="${replace.var.from}"
+                       replace="${replace.var.to}"
+                       flags="g" byline="false">
+            <fileset dir="${tmp.dir}/alt-src" includes="**/*.java"/>
+        </replaceregexp>
+        <antcall target="build-war">
+            <param name="src.dir" value="${tmp.dir}/alt-src"/>
+            <param name="main.java.dir" value="${tmp.dir}/alt-src/main/java"/>
+            <param name="main.webapp.dir" value="${tmp.dir}/alt-src/main/webapp"/>
+            <param name="lib.dir" value="${lib.dir}"/>
+            <param name="build.dir" value="${tmp.dir}/alt-build"/>
+            <param name="build.classes" value="${tmp.dir}/alt-build/main/java"/>
+            <param name="build.resources.dir" value="${tmp.dir}/alt-build/main/resources"/>
+            <param name="WEB-INF.dir" value="${tmp.dir}/alt-build/main/webapp/WEB-INF"/>
+            <param name="dist.dir" value="${tmp.dir}/alt-dist"/>
+            <param name="doc.dir" value="${tmp.dir}/alt-doc"/>
+            <param name="javadoc.dir" value="${tmp.dir}/alt-doc"/>
+            <param name="project.name" value="${project.name}-alt"/>
+        </antcall>
+    </target>
+
+
+    <target name="env" description="Build and run the program in alternative environments">
+        <fail unless="java.version" message="Java version not specified. Use: ant env -Djava.version=17"/>
+        <fail unless="vm.args" message="JVM arguments not specified. Use: ant env -Dvm.args='-Xmx512m -Xms256m'"/>
+        <echo message="Running in environment:"/>
+        <echo message="  Java version: ${java.version}"/>
+        <echo message="  JVM arguments: ${vm.args}"/>
+        <antcall target="build-war">
+            <param name="java.version" value="${java.version}"/>
+            <param name="vm.args" value="${vm.args}"/>
+        </antcall>
+    </target>
+
+
+
+    <target name="team" description="Получение 2 предыдущих ревизий из git, их сборка и упаковка в zip" depends="_clean-tmp">
+        <mkdir dir="${tmp.dir}/team"/>
+        <exec executable="git" dir="${tmp.dir}/team">
+            <arg line="clone ${git.repository} repo"/>
+        </exec>
+        <property name="revisions" value="${git.revisions}"/>
+        <for list="${revisions}" param="revision" delimiter=" ">
+            <sequential>
+                <exec executable="git" dir="${tmp.dir}/team/repo" failonerror="true">
+                    <arg line="checkout -f @{revision}"/>
+                </exec>
+                <antcall target="build-war">
+                    <param name="src.dir" value="${tmp.dir}/team/repo/src"/>
+                    <param name="main.java.dir" value="${tmp.dir}/team/repo/src/main/java"/>
+                    <param name="main.webapp.dir" value="${tmp.dir}/team/repo/src/main/webapp"/>
+                    <param name="build.dir" value="${tmp.dir}/team/build-@{revision}"/>
+                    <param name="build.classes" value="${tmp.dir}/team/build-@{revision}/main/java"/>
+                    <param name="build.resources.dir" value="${tmp.dir}/team/build-@{revision}/main/resources"/>
+                    <param name="WEB-INF.dir" value="${tmp.dir}/team/build-@{revision}/main/webapp/WEB-INF"/>
+                    <param name="dist.dir" value="${tmp.dir}/team/dist-@{revision}"/>
+                    <param name="doc.dir" value="${tmp.dir}/team/doc-@{revision}"/>
+                    <param name="javadoc.dir" value="${tmp.dir}/team/doc-@{revision}"/>
+                </antcall>
+
+                <copy todir="${tmp.dir}/team/wars" failonerror="false">
+                    <fileset dir="${tmp.dir}/team/dist-@{revision}" includes="*.war"/>
+                    <mapper type="glob" from="*.war" to="@{revision}.war"/>
+                </copy>
+            </sequential>
+        </for>
+
+        <zip destfile="${dist.dir}/${project.name}-revisions.zip"
+             basedir="${tmp.dir}/team/wars"
+             filesonly="true"/>
+    </target>
+
+
+    <target name="history" description="Поиск последней работающей ревизии и формирование diff" depends="_clean-tmp">
+        <mkdir dir="${tmp.dir}/history"/>
+
+        <exec executable="git" dir="${tmp.dir}/history" failonerror="true">
+            <arg line="clone ${git.repository} repo"/>
+        </exec>
+
+        <exec executable="git"
+              dir="${tmp.dir}/history/repo"
+              output="${tmp.dir}/commits.txt">
+            <arg value="log"/>
+            <arg value="--all"/>
+            <arg value="--pretty=format:%H"/>
+        </exec>
+
+        <loadfile property="commits-list" srcFile="${tmp.dir}/commits.txt"/>
+
+        <trycatch property="current.compile.error">
+            <try>
+                <antcall target="compile">
+                    <param name="src.dir" value="${src.dir}"/>
+                    <param name="build.dir" value="${build.dir}"/>
+                    <param name="build.classes" value="${build.classes}"/>
+                </antcall>
+                <echo message="SUCCESS: Current version compiles. No need to search history."/>
+                <var name="found.working" value="true"/>
+                <var name="working.commit" value="current"/>
+                <var name="skip.history.search" value="true"/>
+            </try>
+            <catch>
+                <echo message="FAILED: Current version doesn't compile. Starting history search..."/>
+                <var name="skip.history.search" value="false"/>
+            </catch>
+        </trycatch>
+
+        <if>
+            <not>
+                <equals arg1="${skip.history.search}" arg2="true"/>
+            </not>
+            <then>
+                <var name="previous.commit" value=""/>
+                <var name="working.commit" value=""/>
+                <var name="found.working" value="false"/>
+                <var name="commit.index" value="0"/>
+
+                <for list="${commits-list}" param="commit" delimiter="${line.separator}">
+                    <sequential>
+                        <if>
+                            <not>
+                                <equals arg1="${found.working}" arg2="true"/>
+                            </not>
+                            <then>
+                                <echo message="Testing commit [${commit.index}]: @{commit}"/>
+
+                                <exec executable="git" dir="${tmp.dir}/history/repo" failonerror="true">
+                                    <arg line="checkout -f @{commit}"/>
+                                </exec>
+
+                                <trycatch>
+                                    <try>
+                                        <antcall target="compile">
+                                            <param name="src.dir" value="${tmp.dir}/history/repo/src"/>
+                                            <param name="main.java.dir" value="${tmp.dir}/history/repo/src/main/java"/>
+                                            <param name="main.webapp.dir" value="${tmp.dir}/history/repo/src/main/webapp"/>
+                                            <param name="lib.dir" value="${lib.dir}"/>
+                                            <param name="build.dir" value="${tmp.dir}/history/build-@{commit}"/>
+                                            <param name="build.classes" value="${tmp.dir}/history/build-@{commit}/main/java"/>
+                                            <param name="build.resources.dir" value="${tmp.dir}/history/build-@{commit}/main/resources"/>
+                                        </antcall>
+                                        <var name="found.working" value="true"/>
+                                        <var name="working.commit" value="@{commit}"/>
+                                        <echo message="*** WORKING COMMIT FOUND: @{commit} ***"/>
+                                    </try>
+                                    <catch>
+                                        <echo message="Commit @{commit} failed"/>
+                                        <var name="previous.commit" value="@{commit}"/>
+                                    </catch>
+                                </trycatch>
+
+                                <math result="commit.index"
+                                      operand1="${commit.index}"
+                                      operation="+"
+                                      operand2="1"
+                                      datatype="int"/>
+                            </then>
+                        </if>
+                    </sequential>
+                </for>
+
+                <if>
+                    <and>
+                        <equals arg1="${found.working}" arg2="true"/>
+                        <not>
+                            <equals arg1="${previous.commit}" arg2=""/>
+                        </not>
+                    </and>
+                    <then>
+                        <echo message="Generating diff: ${working.commit} -> ${previous.commit}"/>
+                        <exec executable="git"
+                              dir="${tmp.dir}/history/repo"
+                              output="${tmp.dir}/history/changes.diff">
+                            <arg value="diff"/>
+                            <arg value="${working.commit}"/>
+                            <arg value="${previous.commit}"/>
+                        </exec>
+                        <echo message="Diff saved to ${tmp.dir}/history/changes.diff"/>
+                    </then>
+                    <else>
+                        <if>
+                            <equals arg1="${found.working}" arg2="false"/>
+                            <then>
+                                <fail message="No working revision"/>
+                            </then>
+                        </if>
+                    </else>
+                </if>
+
+<!--                <if>-->
+<!--                    <equals arg1="${found.working}" arg2="true"/>-->
+<!--                    <then>-->
+<!--                        <exec executable="git" dir="${tmp.dir}/history/repo" failonerror="true">-->
+<!--                            <arg line="checkout -f ${working.commit}"/>-->
+<!--                        </exec>-->
+<!--                        <copy todir="${src.dir}" overwrite="true">-->
+<!--                            <fileset dir="${tmp.dir}/history/repo/src">-->
+<!--                                <exclude name=".git/**"/>-->
+<!--                            </fileset>-->
+<!--                        </copy>-->
+<!--                        <echo message="Restored working version: ${working.commit}"/>-->
+<!--                    </then>-->
+<!--                </if>-->
+            </then>
+            <else>
+                <echo message="Current version is working. No changes needed."/>
+            </else>
+        </if>
+
+        <echo message="=== History check completed ==="/>
+    </target>
+
+    <target name="diff" description="Проверка и коммит изменений в SVN" depends="_clean-tmp">
+        <mkdir dir="${tmp.dir}/diff"/>
+        <condition property="user.home" value="${env.USERPROFILE}">
+            <os family="windows"/>
+        </condition>
+        <condition property="user.home" value="${env.HOME}">
+            <os family="unix"/>
+        </condition>
+
+        <exec executable="svn" dir="${tmp.dir}/diff" failonerror="true">
+            <arg line="checkout file:///${user.home}/${svn.local.repository}"/>
+        </exec>
+
+        <copy todir="${tmp.dir}/diff/trunk" overwrite="true">
+            <fileset dir="${src.dir}"/>
+        </copy>
+
+        <exec executable="svn" dir="${tmp.dir}/diff/trunk" failonerror="false">
+            <arg value="add"/>
+            <arg value="--force"/>
+            <arg value="."/>
+        </exec>
+
+        <exec executable="svn"
+              dir="${tmp.dir}/diff/trunk"
+              output="${tmp.dir}/diff/svn-status.txt">
+            <arg value="status"/>
+            <arg value="-q"/>
+        </exec>
+
+        <loadfile property="svn.status" srcFile="${tmp.dir}/diff/svn-status.txt"/>
+
+        <available file="${svn.tracked_classes}" property="params.exists"/>
+
+        <if>
+            <equals arg1="${params.exists}" arg2="true"/>
+            <then>
+                <loadfile property="tracked.classes" srcFile="${svn.tracked_classes}"/>
+                <condition property="has.match">
+                    <contains string="${svn.status}" substring="${tracked.classes}"/>
+                </condition>
+
+                <if>
+                    <equals arg1="${has.match}" arg2="true"/>
+                    <then>
+                        <echo message="Изменены отслеживаемые классы. Выполняем commit..."/>
+                        <exec executable="svn" dir="${tmp.dir}/diff/trunk" failonerror="true">
+                            <arg value="commit"/>
+                            <arg value="-m"/>
+                            <arg value="Auto-commit: tracked classes changed"/>
+                        </exec>
+
+                        <echo message="Commit выполнен успешно"/>
+                    </then>
+                    <else>
+                        <echo message="Отслеживаемые классы не изменены. Commit не требуется."/>
+                    </else>
+                </if>
+            </then>
+            <else>
+                <echo message="Файл параметров не найден. Коммитим все изменения..."/>
+
+                <exec executable="svn" dir="${tmp.dir}/diff/trunk" failonerror="true">
+                    <arg value="commit"/>
+                    <arg value="-m"/>
+                    <arg value="Auto-commit: all changes"/>
+                </exec>
+
+                <echo message="Commit выполнен успешно"/>
+            </else>
+        </if>
+    </target>
+
+    <target name="report" description="Сохранение отчёта JUnit в SVN при успешных тестах">
+
+        <available file="${test-report.dir}" type="dir" property="reports.exist"/>
+
+        <if>
+            <equals arg1="${reports.exist}" arg2="true"/>
+            <then>
+                <property name="has.failures" value="false"/>
+
+                <for param="report.file">
+                    <path>
+                        <fileset dir="${test-report.dir}" includes="TEST-*.xml"/>
+                    </path>
+                    <sequential>
+                        <local name="report.content"/>
+                        <local name="test.failed"/>
+                        <local name="has.no.failures"/>
+                        <local name="has.no.errors"/>
+
+                        <loadfile property="report.content" srcFile="@{report.file}" failonerror="false"/>
+
+                        <condition property="has.no.failures">
+                            <contains string="${report.content}" substring='failures="0"'/>
+                        </condition>
+
+                        <condition property="has.no.errors">
+                            <contains string="${report.content}" substring='errors="0"'/>
+                        </condition>
+
+                        <condition property="test.failed" value="true">
+                            <or>
+                                <not><isset property="has.no.failures"/></not>
+                                <not><isset property="has.no.errors"/></not>
+                            </or>
+                        </condition>
+
+                        <if>
+                            <equals arg1="${test.failed}" arg2="true"/>
+                            <then>
+                                <var name="has.failures" value="true"/>
+                            </then>
+                        </if>
+                    </sequential>
+                </for>
+
+                <if>
+                    <equals arg1="${has.failures}" arg2="false"/>
+                    <then>
+                        <echo message="Все тесты пройдены успешно. Сохраняем отчёт в SVN..."/>
+
+                        <condition property="user.home" value="${env.USERPROFILE}">
+                            <os family="windows"/>
+                        </condition>
+                        <condition property="user.home" value="${env.HOME}">
+                            <os family="unix"/>
+                        </condition>
+
+                        <mkdir dir="${tmp.dir}/report"/>
+
+                        <exec executable="svn" dir="${tmp.dir}/report" failonerror="true">
+                            <arg line="checkout file:///${user.home}/${svn.local.repository}"/>
+                        </exec>
+
+                        <mkdir dir="${tmp.dir}/report/trunk/reports"/>
+
+                        <copy todir="${tmp.dir}/report/trunk/reports" overwrite="true">
+                            <fileset dir="${test-report.dir}" includes="TEST-*.xml"/>
+                        </copy>
+
+                        <exec executable="svn" dir="${tmp.dir}/report/trunk" failonerror="false">
+                            <arg value="add"/>
+                            <arg value="--force"/>
+                            <arg value="reports"/>
+                        </exec>
+
+                        <exec executable="svn" dir="${tmp.dir}/report/trunk" failonerror="true">
+                            <arg value="commit"/>
+                            <arg value="-m"/>
+                            <arg value="JUnit test report - all tests passed"/>
+                        </exec>
+                    </then>
+                    <else>
+                        <fail message="TESTS FAILED"/>
+                    </else>
+                </if>
+            </then>
+            <else>
+                <fail message="Директория с отчётами не найдена: ${test-report.dir}"/>
+            </else>
+        </if>
+    </target>
+</project>

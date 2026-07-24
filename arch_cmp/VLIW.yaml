@@ -1,0 +1,27 @@
+limit: 1000
+memory_size: 0x1000
+memory_mapped_io:
+  0x80: [-1, 2, 3, -4]
+  0x84: []
+reports:
+  - name: step-by-step
+    slice: all
+    view: |
+      {pc}: {instruction} {pc:label}
+  - name: vliw-load
+    slice: last
+    view: |
+      vliw:load-percent:    {vliw:load-percent}
+      vliw:avg-load:        {vliw:avg-load}
+      vliw:bundles-by-load: {vliw:bundles-by-load}
+  - name: result
+    slice: last
+    view: |
+      vliw:load-percent:    {vliw:load-percent}
+      vliw:avg-load:        {vliw:avg-load}
+      vliw:bundles-by-load: {vliw:bundles-by-load}
+      numio[0x80]: {io:0x80:dec}
+      numio[0x84]: {io:0x84:dec}
+    assert: |
+      numio[0x80]: [] >>> []
+      numio[0x84]: [] >>> [5,10]
