@@ -1,0 +1,69 @@
+limit: 500
+
+memory_size: 0x1000
+
+memory_mapped_io:
+
+  0x80: [12, 0xAABBCCDD, 0xCCDDEEFF, 0xDDDDDDDD]
+
+  0x84: []
+
+reports:
+
+  - name: step-by-step (first 50)
+
+    slice: ["head", 20]
+
+    view: |
+
+
+
+      {pc:label}
+
+
+
+      {pc}: D0 -> {D0:hex} D1 -> {D1:hex} A7 -> {A7:dec} A6 -> {A6:dec}
+
+      {instruction}
+
+      {memory:0x2f6:0x300}
+
+
+
+  - name: step-by-step (last 50)
+
+    slice: ["tail", 20]
+
+    view: |
+
+
+
+      {pc:label}
+
+
+
+      {pc}: D0 -> {D0:hex} D1 -> {D1:hex} A7 -> {A7:dec} A6 -> {A6:dec}
+
+      {instruction}
+
+      {memory:0x2f6:0x300}
+
+
+
+  - name: result
+
+    slice: last
+
+    view: |
+
+      numio[0x80]: {io:0x80:dec}
+
+      numio[0x84]: {io:0x84:hex}
+
+    assert: |
+
+      numio[0x80]: [] >>> []
+
+      numio[0x84]: [] >>> [0x00000012,0x01aa01bb,0x01cc01dd,0x01cc01dd,0x01ee01ff,0x04dd0000]
+
+
